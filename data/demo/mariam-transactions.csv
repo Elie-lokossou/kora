@@ -1,0 +1,29 @@
+id,date,amount,currency,source,direction,category,counterparty,description
+tx-001,2026-03-04,132742,XOF,cash,in,sales,Clients marché,Ventes en espèces
+tx-002,2026-03-12,118769,XOF,mobile_money,in,sales,Clients Mobile Money,Encaissements Mobile Money
+tx-003,2026-03-22,97810,XOF,bank,in,sales,Virements clients,Ventes reçues en banque
+tx-004,2026-03-08,62000,XOF,cash,out,stock,Réapprovisionnement,Achat de stock au marché
+tx-005,2026-04-05,138320,XOF,cash,in,sales,Clients marché,Ventes en espèces
+tx-006,2026-04-12,123760,XOF,mobile_money,in,sales,Clients Mobile Money,Encaissements Mobile Money
+tx-007,2026-04-22,101919,XOF,bank,in,sales,Virements clients,Ventes reçues en banque
+tx-008,2026-04-08,64500,XOF,cash,out,stock,Réapprovisionnement,Achat de stock au marché
+tx-009,2026-05-06,143898,XOF,cash,in,sales,Clients marché,Ventes en espèces
+tx-010,2026-05-12,128751,XOF,mobile_money,in,sales,Clients Mobile Money,Encaissements Mobile Money
+tx-011,2026-05-22,106029,XOF,bank,in,sales,Virements clients,Ventes reçues en banque
+tx-012,2026-05-08,67000,XOF,cash,out,stock,Réapprovisionnement,Achat de stock au marché
+tx-013,2026-05-18,85000,XOF,supplier,out,supplier,Fournisseur Dantokpa,Paiement fournisseur mensuel
+tx-014,2026-06-07,149476,XOF,cash,in,sales,Clients marché,Ventes en espèces
+tx-015,2026-06-12,133741,XOF,mobile_money,in,sales,Clients Mobile Money,Encaissements Mobile Money
+tx-016,2026-06-22,110140,XOF,bank,in,sales,Virements clients,Ventes reçues en banque
+tx-017,2026-06-08,69500,XOF,cash,out,stock,Réapprovisionnement,Achat de stock au marché
+tx-018,2026-06-18,85000,XOF,supplier,out,supplier,Fournisseur Dantokpa,Paiement fournisseur mensuel
+tx-019,2026-07-08,155054,XOF,cash,in,sales,Clients marché,Ventes en espèces
+tx-020,2026-07-12,138732,XOF,mobile_money,in,sales,Clients Mobile Money,Encaissements Mobile Money
+tx-021,2026-07-22,114250,XOF,bank,in,sales,Virements clients,Ventes reçues en banque
+tx-022,2026-07-08,72000,XOF,cash,out,stock,Réapprovisionnement,Achat de stock au marché
+tx-023,2026-07-18,85000,XOF,supplier,out,supplier,Fournisseur Dantokpa,Paiement fournisseur mensuel
+tx-024,2026-08-09,160631,XOF,cash,in,sales,Clients marché,Ventes en espèces
+tx-025,2026-08-12,143723,XOF,mobile_money,in,sales,Clients Mobile Money,Encaissements Mobile Money
+tx-026,2026-08-22,118360,XOF,bank,in,sales,Virements clients,Ventes reçues en banque
+tx-027,2026-08-08,74500,XOF,cash,out,stock,Réapprovisionnement,Achat de stock au marché
+tx-028,2026-08-18,85000,XOF,supplier,out,supplier,Fournisseur Dantokpa,Paiement fournisseur mensuel
