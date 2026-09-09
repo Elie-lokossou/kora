@@ -99,6 +99,17 @@ export default function PartnerPage() {
         </div>
       )}
 
+      {partnerView.denied.length > 0 ? (
+        <section className="mt-6 rounded-2xl border border-dashed border-[var(--line)] bg-[var(--sand)]/40 p-5">
+          <h2 className="font-serif text-xl">Non transmis</h2>
+          <ul className="mt-3 space-y-1 text-sm text-[var(--muted)]">
+            {partnerView.denied.map((scope) => (
+              <li key={scope}>✗ {CONSENT_SCOPE_LABELS[scope]}</li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
       <p className="mt-6 text-xs text-[var(--muted)]">
         ABC Bank construit sa propre décision. Kora n&apos;accorde aucun prêt.
       </p>
