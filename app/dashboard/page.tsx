@@ -9,7 +9,7 @@ import { RevenueChart } from "@/components/RevenueChart";
 import { formatFcfa, formatPct } from "@/lib/format";
 
 export default function DashboardPage() {
-  const { passport } = useDemo();
+  const { passport, receipts } = useDemo();
   const { indicators } = passport;
 
   return (
@@ -22,8 +22,8 @@ export default function DashboardPage() {
       </h1>
       <p className="mt-2 max-w-2xl text-[var(--muted)]">
         {passport.businessName} · {passport.sector} · {passport.city}. Activité
-        fragmentée rassemblée dans un profil que tu contrôles. Les
-        indicateurs ne sont pas une preuve.
+        fragmentée, rassemblée, partageable à durée limitée. Tu vois qui a
+        ouvert le dossier.
       </p>
 
       <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
@@ -57,8 +57,32 @@ export default function DashboardPage() {
         <RevenueChart data={indicators.monthly} />
       </section>
 
+      <section className="mt-6 rounded-2xl border border-[var(--line)] bg-white p-5">
+        <h2 className="font-serif text-xl">Qui a ouvert le dossier</h2>
+        {receipts.length === 0 ? (
+          <p className="mt-3 text-sm text-[var(--muted)]">
+            Personne pour l&apos;instant. Autorise un partenaire, puis ouvre sa
+            vue : le reçu apparaît ici.
+          </p>
+        ) : (
+          <ul className="mt-3 space-y-2 text-sm">
+            {receipts.map((receipt) => (
+              <li key={receipt.id} className="flex justify-between gap-4">
+                <span>{receipt.partnerName} a consulté le dossier</span>
+                <span className="text-[var(--muted)]">
+                  {receipt.viewedAt.slice(11, 16)}
+                </span>
+              </li>
+            ))}
+          </ul>
+        )}
+        <Link href="/consent" className="mt-4 inline-block text-sm underline">
+          Décider ce qu&apos;ils voient
+        </Link>
+      </section>
+
       <div className="mt-6">
-        <EvidencePanel evidence={passport.evidence} />
+        <EvidencePanel evidence={passport.evidence} compact />
       </div>
     </AppShell>
   );

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect } from "react";
 import { AppShell } from "@/components/AppShell";
 import { useDemo } from "@/components/DemoProvider";
 import { EvidencePanel } from "@/components/EvidencePanel";
@@ -20,7 +21,11 @@ function Denied({ scope }: { scope: ConsentScope }) {
 }
 
 export default function PartnerPage() {
-  const { partnerView, setRole } = useDemo();
+  const { partnerView, setRole, partnerName, recordPartnerOpen } = useDemo();
+
+  useEffect(() => {
+    recordPartnerOpen();
+  }, [recordPartnerOpen]);
 
   if (!partnerView || partnerView.granted.length === 0) {
     return (
@@ -29,8 +34,8 @@ export default function PartnerPage() {
           Vue partenaire
         </h1>
         <p className="mt-3 max-w-xl text-[var(--muted)]">
-          Aucun consentement actif. ABC Bank ne reçoit rien — pas même un
-          passeport flouté.
+          Aucun consentement actif. {partnerName} ne reçoit rien — pas même un
+          dossier flouté.
         </p>
         <Link
           href="/consent"
@@ -53,19 +58,9 @@ export default function PartnerPage() {
         Dossier consenti
       </h1>
       <p className="mt-2 text-sm text-[var(--muted)]">
-        Accès jusqu&apos;au {partnerView.expiresAt.slice(0, 10)}. Les champs
-        refusés ne sont pas transmis. Le poids de la preuve l&apos;est
-        toujours : un dossier ne peut pas paraître plus sûr que ses sources.
+        Accès jusqu&apos;au {partnerView.expiresAt.slice(0, 10)}. Cette
+        consultation crée un reçu côté Mariam.
       </p>
-
-      {partnerView.evidence ? (
-        <div className="mt-6">
-          <EvidencePanel
-            evidence={partnerView.evidence}
-            title="Toujours visible — hors consentement"
-          />
-        </div>
-      ) : null}
 
       <div className="mt-6 grid gap-4 sm:grid-cols-2">
         {view.monthlyAvgRevenue !== undefined ? (
@@ -121,8 +116,15 @@ export default function PartnerPage() {
         </section>
       ) : null}
 
+      {partnerView.evidence ? (
+        <div className="mt-6">
+          <EvidencePanel evidence={partnerView.evidence} compact />
+        </div>
+      ) : null}
+
       <p className="mt-6 text-xs text-[var(--muted)]">
-        ABC Bank construit sa propre décision. Kora n&apos;accorde aucun prêt.
+        {partnerName} construit sa propre décision. Kora n&apos;accorde aucun
+        crédit.
       </p>
       <button
         type="button"

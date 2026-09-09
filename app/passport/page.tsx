@@ -41,7 +41,7 @@ export default function PassportPage() {
       </div>
 
       <div className="mt-6">
-        <EvidencePanel evidence={passport.evidence} />
+        <EvidencePanel evidence={passport.evidence} compact />
       </div>
 
       <section className="mt-6 rounded-2xl border border-[var(--line)] bg-white p-5">

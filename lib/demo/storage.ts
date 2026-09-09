@@ -1,14 +1,24 @@
 import type { ConsentGrant, ConsentScope } from "../engine/types";
+import type { DemoPartnerId } from "./partners";
 
-const KEY = "kora.demo.v1";
+const KEY = "kora.demo.v2";
 
 export type DemoRole = "entrepreneur" | "partner";
 
+export type AccessReceipt = {
+  id: string;
+  partnerName: string;
+  viewedAt: string;
+  scopes: ConsentScope[];
+};
+
 export type DemoState = {
   role: DemoRole;
+  partnerId: DemoPartnerId;
   scopes: ConsentScope[];
   durationDays: number;
   consent: ConsentGrant | null;
+  receipts: AccessReceipt[];
 };
 
 export const DEFAULT_SCOPES: ConsentScope[] = [
@@ -22,9 +32,11 @@ export const DEFAULT_SCOPES: ConsentScope[] = [
 
 export const DEFAULT_STATE: DemoState = {
   role: "entrepreneur",
+  partnerId: "dantokpa",
   scopes: DEFAULT_SCOPES,
   durationDays: 30,
   consent: null,
+  receipts: [],
 };
 
 const listeners = new Set<() => void>();
@@ -49,7 +61,9 @@ function readState(): DemoState {
     snapshot = {
       ...DEFAULT_STATE,
       ...parsed,
+      partnerId: parsed.partnerId ?? DEFAULT_STATE.partnerId,
       scopes: parsed.scopes ?? DEFAULT_SCOPES,
+      receipts: parsed.receipts ?? [],
     };
     return snapshot;
   } catch {

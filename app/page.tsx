@@ -8,35 +8,34 @@ export default function Home() {
           Kora Labs · Hackathon Cotonou
         </p>
         <h1 className="mt-4 font-serif text-5xl leading-tight">
-          Ton activité existe déjà.
+          Elle ne donne plus le cahier.
           <br />
-          Kora la rend visible.
+          Elle ouvre un dossier qui expire.
         </h1>
         <p className="mt-6 max-w-2xl text-lg text-[var(--sand)]/80">
-          Kora transforme des données d&apos;activité fragmentées en un
-          Economic Passport : un profil structuré, portable, que
-          l&apos;entrepreneur contrôle et partage sélectivement. Kora ne
-          certifie pas que les chiffres sont vrais : elle les structure et
-          montre le poids de la preuve. Ce n&apos;est pas une banque. Ce
-          n&apos;est pas un score. Ce n&apos;est pas une IA qui décide.
+          Un fournisseur ou une banque veut comprendre l&apos;activité de
+          Mariam. Kora lui envoie seulement ce qu&apos;elle déverrouille, pour
+          30 jours. Elle voit qui a ouvert. Personne n&apos;emporte les
+          tickets de vente. Et le dossier ne peut pas se faire passer pour une
+          attestation.
         </p>
         <div className="mt-10 flex flex-wrap gap-4">
           <Link
-            href="/dashboard"
+            href="/consent"
             className="rounded-full bg-[var(--gold)] px-5 py-3 text-sm font-medium text-[var(--ink)]"
           >
-            Voir la démo Mariam
+            Voir le moment qui gagne
           </Link>
           <Link
-            href="/partner"
+            href="/dashboard"
             className="rounded-full border border-[var(--sand)]/30 px-5 py-3 text-sm"
           >
-            Vue partenaire ABC Bank
+            Tableau de Mariam
           </Link>
         </div>
         <p className="mt-8 text-xs text-[var(--sand)]/60">
-          Prototype de démonstration. Aucune intégration opérateur ou banque
-          n&apos;est prétendue.
+          Prototype de démonstration. Aucune intégration opérateur n&apos;est
+          prétendue.
         </p>
       </div>
     </div>

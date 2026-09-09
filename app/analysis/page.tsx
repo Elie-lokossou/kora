@@ -57,7 +57,7 @@ export default function AnalysisPage() {
       </section>
 
       <div className="mt-6">
-        <EvidencePanel evidence={passport.evidence} />
+        <EvidencePanel evidence={passport.evidence} compact />
       </div>
     </AppShell>
   );
