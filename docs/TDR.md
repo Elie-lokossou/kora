@@ -30,6 +30,7 @@ Exclus : connecteurs opérateurs, décision de crédit, scoring, chatbot, multi-
 4. Un consentement nomme le destinataire, les scopes, la durée.
 5. La vue partenaire masque tout scope non accordé.
 6. Chaque écran indique qu'il s'agit d'une démonstration.
+7. Le passeport expose un poids de la preuve (déclaré / importé / attesté). Ce bloc est visible côté partenaire même si les métriques sont refusées. Kora n'atteste rien dans ce MVP.
 
 ## 6. Exigences non fonctionnelles
 

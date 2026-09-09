@@ -10,6 +10,7 @@ import {
   type ReactNode,
 } from "react";
 import { addDays, buildPartnerView } from "@/lib/engine/consent";
+import { computeEvidence } from "@/lib/engine/evidence";
 import { computeIndicators } from "@/lib/engine/indicators";
 import { buildPassport } from "@/lib/engine/explain";
 import { parseCsv } from "@/lib/engine/normalize";
@@ -67,6 +68,7 @@ export function DemoProvider({ children }: { children: ReactNode }) {
       ...MARIAM_PROFILE,
       generatedAt: "2026-09-09T09:00:00.000Z",
       indicators: computeIndicators(transactions),
+      evidence: computeEvidence(transactions),
     });
   }, [transactions]);
 

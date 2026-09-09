@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { AppShell } from "@/components/AppShell";
 import { useDemo } from "@/components/DemoProvider";
+import { EvidencePanel } from "@/components/EvidencePanel";
 import { MetricCard } from "@/components/MetricCard";
 import { formatFcfa, formatPct } from "@/lib/format";
 
@@ -39,12 +40,17 @@ export default function PassportPage() {
         />
       </div>
 
+      <div className="mt-6">
+        <EvidencePanel evidence={passport.evidence} />
+      </div>
+
       <section className="mt-6 rounded-2xl border border-[var(--line)] bg-white p-5">
         <h2 className="font-serif text-xl">Ce que ce document est</h2>
         <p className="mt-3 text-sm leading-7">
-          Une représentation produit de l&apos;activité économique, construite
-          à partir des données importées. Ce n&apos;est pas une identité légale,
-          pas un score, pas une décision. {passport.disclaimer}
+          Une représentation produit de l&apos;activité, pas une attestation.
+          Mariam peut la partager ; le partenaire voit aussi le poids de la
+          preuve — ce champ n&apos;est pas masquable. Ce n&apos;est pas une
+          identité légale, pas un score, pas une décision. {passport.disclaimer}
         </p>
         <Link
           href="/consent"

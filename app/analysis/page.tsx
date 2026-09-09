@@ -2,6 +2,7 @@
 
 import { AppShell } from "@/components/AppShell";
 import { useDemo } from "@/components/DemoProvider";
+import { EvidencePanel } from "@/components/EvidencePanel";
 import { formatFcfa, formatMonth } from "@/lib/format";
 
 export default function AnalysisPage() {
@@ -14,7 +15,8 @@ export default function AnalysisPage() {
         Analyse économique
       </h1>
       <p className="mt-2 max-w-2xl text-[var(--muted)]">
-        L&apos;IA de Kora explique. Elle ne décide pas d&apos;un crédit.
+        L&apos;IA de Kora explique les données importées. Elle ne les
+        certifie pas, et elle ne décide pas d&apos;un crédit.
       </p>
 
       <section className="mt-6 rounded-2xl border border-[var(--line)] bg-white p-5">
@@ -53,6 +55,10 @@ export default function AnalysisPage() {
           )}
         </article>
       </section>
+
+      <div className="mt-6">
+        <EvidencePanel evidence={passport.evidence} />
+      </div>
     </AppShell>
   );
 }

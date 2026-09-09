@@ -68,6 +68,7 @@ export function buildPartnerView(
     expiresAt: consent.expiresAt,
     granted,
     denied: CONSENT_SCOPES.filter((scope) => !granted.includes(scope)),
+    evidence: active ? passport.evidence : null,
     passport: active ? filterPassportForScopes(passport, granted) : {},
   };
 }

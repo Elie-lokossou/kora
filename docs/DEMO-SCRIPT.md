@@ -10,7 +10,7 @@ Chronomètre obligatoire. Ronald clique. John parle. Hanniel et Euloge n'interro
 
 Ouvrir le dashboard.
 
-« Voici Mariam, commerçante à Cotonou. Ce que vous voyez est un **jeu de démonstration**, pas un pilote terrain. Son activité est déjà là. Elle n'avait juste pas de représentation portable. »
+« Voici Mariam, commerçante à Cotonou. **Jeu de démonstration**, pas un pilote. Regardez déjà le poids de la preuve : une part est du cash déclaré, une part est importée, **zéro pour cent n'est attesté**. Kora ne vous demande pas de croire ces chiffres. »
 
 ## 0:45 — Import (20 s)
 
@@ -28,7 +28,7 @@ Ouvrir le dashboard.
 
 Écran Passeport.
 
-« Ça, c'est l'Economic Passport. Une identité économique produit, pas une identité légale. Mariam peut l'emporter chez un autre partenaire demain. »
+« Ça, c'est l'Economic Passport. Pas une identité légale. Pas une attestation. Mariam peut l'emporter ailleurs — et le poids de la preuve voyage avec, elle ne peut pas l'enlever. »
 
 ## 2:00 — Consentement (35 s)
 
@@ -40,11 +40,11 @@ Cocher revenu agrégé, tendance, cash-flow. Décocher transactions individuelle
 
 Switcher vers ABC Bank.
 
-« La banque voit uniquement ce qui a été autorisé. Le reste n'est pas flouté après coup : il n'est pas envoyé. »
+« La banque voit uniquement ce qui a été autorisé. Le reste n'est pas envoyé. Sauf le poids de la preuve : toujours visible. Un dossier Kora ne peut pas bluffer. »
 
 ## 2:55 — Close (5 s)
 
-« Kora rend l'activité visible, compréhensible et partageable. L'entrepreneur reste maître du dossier. »
+« Kora rend l'activité partageable sans la faire paraître plus vraie qu'elle n'est. L'entrepreneur reste maître du dossier. La preuve, elle, n'est pas négociable. »
 
 ## Si ça plante
 

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { AppShell } from "@/components/AppShell";
 import { useDemo } from "@/components/DemoProvider";
+import { EvidencePanel } from "@/components/EvidencePanel";
 import { MetricCard } from "@/components/MetricCard";
 import { RevenueChart } from "@/components/RevenueChart";
 import { formatFcfa, formatPct } from "@/lib/format";
@@ -21,7 +22,8 @@ export default function DashboardPage() {
       </h1>
       <p className="mt-2 max-w-2xl text-[var(--muted)]">
         {passport.businessName} · {passport.sector} · {passport.city}. Activité
-        fragmentée rassemblée dans un profil que tu contrôles.
+        fragmentée rassemblée dans un profil que tu contrôles. Les
+        indicateurs ne sont pas une preuve.
       </p>
 
       <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
@@ -54,6 +56,10 @@ export default function DashboardPage() {
         </div>
         <RevenueChart data={indicators.monthly} />
       </section>
+
+      <div className="mt-6">
+        <EvidencePanel evidence={passport.evidence} />
+      </div>
     </AppShell>
   );
 }
