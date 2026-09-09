@@ -10,6 +10,8 @@
 - Présenter 386 000 FCFA comme un résultat de terrain.
 - « Kora, c'est une IA. »
 - « On remplace le RCCM / l'identité légale. »
+- « Ces chiffres sont vérifiés / certifiés / prouvés. »
+- « Une banque peut se fier à Kora pour prêter. »
 
 ## Autorisé — et plus fort
 
@@ -19,6 +21,8 @@
 - « Le partenaire ne voit que ce qui a été consenti, pour une durée limitée. »
 - « Le MVP utilise un import CSV et des données de démonstration. »
 - « On vise d'abord le fonds de roulement des petits commerçants à Cotonou. »
+- « Kora n'atteste pas l'activité. Elle structure le dossier et montre le poids de la preuve. »
+- « Le cash n'est pas caché : il est marqué déclaratif. »
 
 ## Réponses aux objections
 
@@ -27,9 +31,10 @@
 | « C'est juste un dashboard. » | Un dashboard reste chez un fournisseur. Le passeport est portable, consenti, horodaté, et a une vue partenaire native. |
 | « C'est ChatGPT sur un CSV. » | Le différenciateur est l'infrastructure : normalisation, identité économique, consentement, journal. L'IA est la couche d'explication. |
 | « Les scores existent déjà. » | On ne score pas et on ne décide pas. L'entrepreneur possède le dossier. Le partenaire construit *sa* décision. |
-| « Où sont les vraies données ? » | On ne prétend pas les avoir. Le MVP prouve le parcours et le contrôle. Les connecteurs sont une phase 2. |
-| « Pourquoi une banque l'utiliserait ? » | Pour lire un dossier structuré, minimisé et consenti au lieu d'un PDF WhatsApp et d'un cahier. |
+| « Où sont les vraies données ? » | On ne prétend pas les avoir. Le MVP prouve le parcours, le contrôle, et l'honnêteté sur la preuve. Les attestations tierces sont une phase 2. |
+| « Pourquoi une banque l'utiliserait ? » | Pour lire un dossier structuré, minimisé, consenti, **et** voir ce qui est déclaré vs importé vs attesté — au lieu d'un PDF WhatsApp qui a l'air plus vrai qu'il ne l'est. |
+| « N'importe qui peut faker le CSV. » | Oui. C'est pour ça que le passeport affiche 0 % attesté et que ce champ n'est pas masquable. Un menteur ne doit pas ressortir plus crédible. |
 
 ## Phrase d'une ligne
 
-> Kora rend l'activité économique visible, compréhensible et partageable — sans confisquer les données de l'entrepreneur.
+> Kora rend l'activité visible et partageable — sans la faire paraître plus vraie que ses sources, et sans confisquer le dossier de l'entrepreneur.

@@ -1,8 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect } from "react";
 import { AppShell } from "@/components/AppShell";
 import { useDemo } from "@/components/DemoProvider";
+import { EvidencePanel } from "@/components/EvidencePanel";
 import { MetricCard } from "@/components/MetricCard";
 import { CONSENT_SCOPE_LABELS, type ConsentScope } from "@/lib/engine/types";
 import { formatFcfa, formatPct } from "@/lib/format";
@@ -19,7 +21,11 @@ function Denied({ scope }: { scope: ConsentScope }) {
 }
 
 export default function PartnerPage() {
-  const { partnerView, setRole } = useDemo();
+  const { partnerView, setRole, partnerName, recordPartnerOpen } = useDemo();
+
+  useEffect(() => {
+    recordPartnerOpen();
+  }, [recordPartnerOpen]);
 
   if (!partnerView || partnerView.granted.length === 0) {
     return (
@@ -28,8 +34,8 @@ export default function PartnerPage() {
           Vue partenaire
         </h1>
         <p className="mt-3 max-w-xl text-[var(--muted)]">
-          Aucun consentement actif. ABC Bank ne reçoit rien — pas même un
-          passeport flouté.
+          Aucun consentement actif. {partnerName} ne reçoit rien — pas même un
+          dossier flouté.
         </p>
         <Link
           href="/consent"
@@ -52,8 +58,8 @@ export default function PartnerPage() {
         Dossier consenti
       </h1>
       <p className="mt-2 text-sm text-[var(--muted)]">
-        Accès jusqu&apos;au {partnerView.expiresAt.slice(0, 10)}. Les champs
-        refusés ne sont pas transmis.
+        Accès jusqu&apos;au {partnerView.expiresAt.slice(0, 10)}. Cette
+        consultation crée un reçu côté Mariam.
       </p>
 
       <div className="mt-6 grid gap-4 sm:grid-cols-2">
@@ -110,8 +116,15 @@ export default function PartnerPage() {
         </section>
       ) : null}
 
+      {partnerView.evidence ? (
+        <div className="mt-6">
+          <EvidencePanel evidence={partnerView.evidence} compact />
+        </div>
+      ) : null}
+
       <p className="mt-6 text-xs text-[var(--muted)]">
-        ABC Bank construit sa propre décision. Kora n&apos;accorde aucun prêt.
+        {partnerName} construit sa propre décision. Kora n&apos;accorde aucun
+        crédit.
       </p>
       <button
         type="button"

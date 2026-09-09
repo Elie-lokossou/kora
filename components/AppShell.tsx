@@ -16,7 +16,7 @@ const NAV = [
 export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
-  const { role, setRole } = useDemo();
+  const { role, setRole, partnerName } = useDemo();
 
   return (
     <div className="min-h-full bg-[var(--paper)] text-[var(--ink)]">
@@ -53,7 +53,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                 role === "partner" ? "bg-[var(--gold)] text-[var(--ink)]" : ""
               }`}
             >
-              ABC Bank
+              {partnerName}
             </button>
           </div>
         </div>

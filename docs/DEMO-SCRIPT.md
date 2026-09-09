@@ -1,53 +1,41 @@
-# Script de démo — 3 minutes
+# Script de démo — 3 minutes (angle jury)
 
-Chronomètre obligatoire. Ronald clique. John parle. Hanniel et Euloge n'interrompent pas.
+Ronald clique. John parle. Personne n'explique l'architecture.
 
-## 0:00 — Le problème (25 s)
+## 0:00 — Le comptoir (25 s)
 
-« Au Bénin, un commerçant peut vendre tous les jours et rester invisible pour une institution. Pas parce qu'il n'a pas d'activité. Parce que la preuve est éparpillée : cash, Mobile Money, banque, cahier, WhatsApp. Kora ne remplace pas une banque. Kora construit le dossier économique que l'entrepreneur possède. »
+« Mariam vend à Cotonou. Son fournisseur de Dantokpa veut lui faire crédit marchand. Aujourd'hui elle tend le cahier, ou des captures WhatsApp — trop, ou rien d'utile. Elle n'a pas d'objet à lui envoyer. »
 
-## 0:25 — Mariam (20 s)
+## 0:25 — Le moment (90 s)
 
-Ouvrir le dashboard.
+Ouvrir **Consentement** (pas le dashboard).
 
-« Voici Mariam, commerçante à Cotonou. Ce que vous voyez est un **jeu de démonstration**, pas un pilote terrain. Son activité est déjà là. Elle n'avait juste pas de représentation portable. »
+« Elle ne lui donne pas sa vie. Elle ouvre un dossier. »  
+Choisir **Fournisseur Dantokpa**.  
+Décocher **Transactions individuelles** et **Informations personnelles** en parlant.
 
-## 0:45 — Import (20 s)
+« Regardez la colonne de droite : ça change tout de suite. Il aura le rythme. Il n'aura pas ses clients. »  
+Dire la phrase d'angle mort si elle s'affiche.  
+**Ouvrir à Fournisseur Dantokpa.**
 
-Écran Import. Charger le CSV démo.
+## 1:55 — L'autre côté (25 s)
 
-« Elle importe un export d'activité. Dans la vraie vie, ce seront plusieurs sources. Aujourd'hui on prouve la normalisation, pas les connecteurs. »
+Switcher vers le partenaire.
 
-## 1:05 — Analyse (30 s)
+« Voilà ce qu'il reçoit. Pas un Excel. Pas le cahier. Et Mariam est en train d'être notifiée. »
 
-Écran Analyse.
+## 2:20 — Le reçu (25 s)
 
-« Le moteur calcule des indicateurs. L'IA — ici une explication, pas une décision — dit en français ce que les chiffres racontent : tendance, régularité, points inhabituels. Kora ne dit pas "crédit accepté". »
+Revenir à Mariam, dashboard.
 
-## 1:35 — Passeport (25 s)
+« Fournisseur Dantokpa a ouvert à 15:02. Chez nous, l'institution ne regarde plus dans le dos du commerçant. »
 
-Écran Passeport.
+Une phrase sur le tampon : « Zéro pour cent attesté. On ne fait pas semblant. »
 
-« Ça, c'est l'Economic Passport. Une identité économique produit, pas une identité légale. Mariam peut l'emporter chez un autre partenaire demain. »
+## 2:45 — Close (15 s)
 
-## 2:00 — Consentement (35 s)
+« Kora, c'est un dossier économique qui expire, que l'entrepreneur possède, et dont il voit les visites. Pas une banque. Pas un score. Un geste qu'elle peut refaire demain avec une banque. »
 
-Cocher revenu agrégé, tendance, cash-flow. Décocher transactions individuelles et infos personnelles. Durée 30 jours. Autoriser ABC Bank.
+## Si on vous interrompt
 
-« Elle choisit précisément quoi, pour qui, combien de temps. C'est ça le produit. »
-
-## 2:35 — Vue partenaire (20 s)
-
-Switcher vers ABC Bank.
-
-« La banque voit uniquement ce qui a été autorisé. Le reste n'est pas flouté après coup : il n'est pas envoyé. »
-
-## 2:55 — Close (5 s)
-
-« Kora rend l'activité visible, compréhensible et partageable. L'entrepreneur reste maître du dossier. »
-
-## Si ça plante
-
-1. Rester calme. Dire « on bascule sur le parcours local ».
-2. John ouvre le plan B (même UI, données `lib/demo`).
-3. Ne jamais improviser une intégration imaginaire pour se sauver.
+Priorité : le split consentement. Si tu n'as le temps que pour une chose, c'est celle-là.

@@ -60,6 +60,18 @@ Un consentement a **toujours** :
 
 La vue partenaire ne lit **jamais** le passeport brut. Elle lit le passeport **filtré par le consentement**.
 
+## D9 — Poids de la preuve (non négociable)
+
+Un chiffre sans provenance est une allégation. Le passeport porte toujours :
+
+- **déclaré** (espèces) — invérifiable dans ce MVP
+- **importé** (Mobile Money / banque / CSV) — non signé, non API
+- **attesté** (tiers) — 0 % dans la démo, et on le dit
+
+Le poids de la preuve **n'est pas un scope de consentement**. Mariam peut cacher ses transactions. Elle ne peut pas cacher que Kora n'atteste rien.
+
+Voir [ESPRIT-CRITIQUE.md](./ESPRIT-CRITIQUE.md).
+
 ## D8 — Ce que l'on ne construit pas
 
 - Score de crédit, acceptation/refus de prêt
