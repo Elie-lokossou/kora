@@ -1,3 +1,4 @@
+import { computeEvidence } from "../engine/evidence";
 import { computeIndicators } from "../engine/indicators";
 import { buildPassport } from "../engine/explain";
 import { transactionsToCsv } from "../engine/normalize";
@@ -120,10 +121,12 @@ export function buildMariamTransactions(): Transaction[] {
 export const MARIAM_TRANSACTIONS = buildMariamTransactions();
 
 export function buildMariamPassport(generatedAt = "2026-09-09T09:00:00.000Z") {
+  const transactions = MARIAM_TRANSACTIONS;
   return buildPassport({
     ...MARIAM_PROFILE,
     generatedAt,
-    indicators: computeIndicators(MARIAM_TRANSACTIONS),
+    indicators: computeIndicators(transactions),
+    evidence: computeEvidence(transactions),
   });
 }
 

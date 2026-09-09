@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { AppShell } from "@/components/AppShell";
 import { useDemo } from "@/components/DemoProvider";
+import { EvidencePanel } from "@/components/EvidencePanel";
 import { MetricCard } from "@/components/MetricCard";
 import { CONSENT_SCOPE_LABELS, type ConsentScope } from "@/lib/engine/types";
 import { formatFcfa, formatPct } from "@/lib/format";
@@ -53,8 +54,18 @@ export default function PartnerPage() {
       </h1>
       <p className="mt-2 text-sm text-[var(--muted)]">
         Accès jusqu&apos;au {partnerView.expiresAt.slice(0, 10)}. Les champs
-        refusés ne sont pas transmis.
+        refusés ne sont pas transmis. Le poids de la preuve l&apos;est
+        toujours : un dossier ne peut pas paraître plus sûr que ses sources.
       </p>
+
+      {partnerView.evidence ? (
+        <div className="mt-6">
+          <EvidencePanel
+            evidence={partnerView.evidence}
+            title="Toujours visible — hors consentement"
+          />
+        </div>
+      ) : null}
 
       <div className="mt-6 grid gap-4 sm:grid-cols-2">
         {view.monthlyAvgRevenue !== undefined ? (

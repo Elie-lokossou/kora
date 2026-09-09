@@ -20,6 +20,7 @@ Ce n'est **pas** une banque, **pas** un score de crédit, **pas** un chatbot, **
 1. [DECISIONS.md](./DECISIONS.md) — ce qui est **verrouillé**. Ne rouvre pas ces débats.
 2. [PLAYBOOK.md](./PLAYBOOK.md) — comment on travaille, branches, erreurs fatales.
 3. [BACKLOG.md](./BACKLOG.md) — **ta** liste de tâches, pas celle du voisin.
+4. Si le projet te semble fade : [ESPRIT-CRITIQUE.md](./ESPRIT-CRITIQUE.md).
 
 Ensuite seulement : [ARCHITECTURE.md](./ARCHITECTURE.md) si tu touches au moteur, à l'API ou au schéma.
 

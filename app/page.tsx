@@ -15,9 +15,10 @@ export default function Home() {
         <p className="mt-6 max-w-2xl text-lg text-[var(--sand)]/80">
           Kora transforme des données d&apos;activité fragmentées en un
           Economic Passport : un profil structuré, portable, que
-          l&apos;entrepreneur contrôle et partage sélectivement. Ce n&apos;est
-          pas une banque. Ce n&apos;est pas un score. Ce n&apos;est pas une IA
-          qui décide.
+          l&apos;entrepreneur contrôle et partage sélectivement. Kora ne
+          certifie pas que les chiffres sont vrais : elle les structure et
+          montre le poids de la preuve. Ce n&apos;est pas une banque. Ce
+          n&apos;est pas un score. Ce n&apos;est pas une IA qui décide.
         </p>
         <div className="mt-10 flex flex-wrap gap-4">
           <Link

@@ -60,6 +60,41 @@ export type Anomaly = {
   kind: "high" | "low";
 };
 
+export const EVIDENCE_LEVELS = ["declared", "imported", "attested"] as const;
+export type EvidenceLevel = (typeof EVIDENCE_LEVELS)[number];
+
+export const EVIDENCE_GRADES = ["declared", "mixed", "attested"] as const;
+export type EvidenceGrade = (typeof EVIDENCE_GRADES)[number];
+
+export const EVIDENCE_GRADE_LABELS: Record<EvidenceGrade, string> = {
+  declared: "Déclaratif",
+  mixed: "Mixte — non attesté",
+  attested: "Partiellement attesté",
+};
+
+export const EVIDENCE_LEVEL_LABELS: Record<EvidenceLevel, string> = {
+  declared: "Déclaré",
+  imported: "Importé, non signé",
+  attested: "Attesté par un tiers",
+};
+
+export type SourceEvidence = {
+  source: DataSource;
+  inbound: number;
+  share: number;
+  level: EvidenceLevel;
+};
+
+export type EvidenceProfile = {
+  grade: EvidenceGrade;
+  declaredShare: number;
+  importedShare: number;
+  attestedShare: number;
+  bySource: SourceEvidence[];
+  statement: string;
+  koraAttestsNothing: boolean;
+};
+
 export type Indicators = {
   currency: "XOF";
   periodStart: string;
@@ -83,6 +118,7 @@ export type EconomicPassport = {
   sector: string;
   generatedAt: string;
   indicators: Indicators;
+  evidence: EvidenceProfile;
   explanation: string;
   disclaimer: string;
 };
@@ -103,6 +139,7 @@ export type PartnerView = {
   expiresAt: string;
   granted: ConsentScope[];
   denied: ConsentScope[];
+  evidence: EvidenceProfile | null;
   passport: Partial<{
     businessName: string;
     ownerName: string;

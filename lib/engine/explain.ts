@@ -1,4 +1,4 @@
-import type { EconomicPassport, Indicators } from "./types";
+import type { EconomicPassport, EvidenceProfile, Indicators } from "./types";
 import { DEMO_DISCLAIMER } from "./types";
 
 function formatFcfa(value: number): string {
@@ -19,7 +19,10 @@ function monthLabel(month: string): string {
   return date.toLocaleDateString("fr-FR", { month: "long", year: "numeric" });
 }
 
-export function explainIndicators(indicators: Indicators): string {
+export function explainIndicators(
+  indicators: Indicators,
+  evidence?: EvidenceProfile,
+): string {
   const growth =
     indicators.growthRate >= 0.05
       ? `Les revenus sont en hausse (${formatPct(indicators.growthRate)}) entre le premier et le dernier mois observés.`
@@ -44,13 +47,18 @@ export function explainIndicators(indicators: Indicators): string {
       ? `Aucune anomalie mensuelle forte n'a été détectée au seuil retenu.`
       : `Point inhabituel : ${monthLabel(indicators.anomalies[0].month)} (${formatFcfa(indicators.anomalies[0].inbound)} FCFA).`;
 
+  const proof = evidence
+    ? evidence.statement
+    : `Ceci est une lecture des données importées. Kora n'en atteste pas la véracité.`;
+
   return [
     `Revenu mensuel moyen : ${formatFcfa(indicators.monthlyAvgRevenue)} FCFA.`,
     growth,
     regularity,
     suppliers,
     anomaly,
-    `Ceci est une lecture des données importées, pas une décision de crédit.`,
+    proof,
+    `Ceci n'est pas une décision de crédit.`,
   ].join(" ");
 }
 
@@ -62,6 +70,7 @@ export function buildPassport(input: {
   sector: string;
   generatedAt: string;
   indicators: Indicators;
+  evidence: EvidenceProfile;
   explanation?: string;
 }): EconomicPassport {
   return {
@@ -72,7 +81,10 @@ export function buildPassport(input: {
     sector: input.sector,
     generatedAt: input.generatedAt,
     indicators: input.indicators,
-    explanation: input.explanation ?? explainIndicators(input.indicators),
+    evidence: input.evidence,
+    explanation:
+      input.explanation ??
+      explainIndicators(input.indicators, input.evidence),
     disclaimer: DEMO_DISCLAIMER,
   };
 }
