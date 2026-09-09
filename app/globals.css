@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+:root {
+  --paper: #f6f0e6;
+  --ink: #14231c;
+  --forest: #1f4d3a;
+  --gold: #c4a15a;
+  --clay: #9a4d2e;
+  --sand: #f3ead8;
+  --muted: #5c6b63;
+  --line: #e4d8c4;
+}
+
+@theme inline {
+  --color-background: var(--paper);
+  --color-foreground: var(--ink);
+  --font-sans: var(--font-dm);
+  --font-serif: var(--font-fraunces);
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+a {
+  color: inherit;
+}

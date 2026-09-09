@@ -3,6 +3,14 @@
 ### Your Economic Identity
 **Making economic activity visible.**
 
+> **Équipe — commencez ici :** [docs/START-HERE.md](./docs/START-HERE.md) · [docs/PLAYBOOK.md](./docs/PLAYBOOK.md) · [docs/BACKLOG.md](./docs/BACKLOG.md)
+>
+> ```bash
+> npm install
+> npm run dev
+> ```
+> Ouvre `/dashboard`. Les 6 écrans du parcours démo tournent **sans backend**, avec le jeu Mariam. Convex vient ensuite (`npx convex dev`, jamais `deploy` pendant le hackathon).
+
 Kora is a consent-based **Economic Data Passport** designed to help small businesses transform their real-world economic activity into structured, understandable and shareable data.
 
 Today, an entrepreneur can have customers, revenue, suppliers and years of business activity — yet remain financially invisible because that information is fragmented across mobile money accounts, sales records, inventory systems, bank accounts and paper records.
