@@ -63,6 +63,12 @@ const JOURNEY = [
   },
 ] as const;
 
+const FOOTER_LINKS = [
+  ["Produit", [["Vue d’ensemble", "/dashboard"], ["Import", "/import"], ["Passeport", "/passport"]]],
+  ["Parcours", [["Analyse", "/analysis"], ["Consentement", "/consent"], ["Vue partenaire", "/partner"]]],
+  ["Principes", [["Fonctionnement", "#fonctionnement"], ["Confiance", "#confiance"], ["Retour en haut", "#top"]]],
+] as const;
+
 export default function Home() {
   return (
     <main id="top" className="overflow-hidden bg-[var(--paper)] text-[var(--ink)]">
@@ -408,15 +414,11 @@ export default function Home() {
               <p className="mt-5 max-w-sm text-sm leading-7 text-white/48">Le passeport économique portable et consenti des petits entrepreneurs.</p>
               <p className="mt-5 text-xs text-[var(--gold)]">Conçu à Cotonou, Bénin.</p>
             </div>
-            {[
-              ["Produit", [["Vue d’ensemble", "/dashboard"], ["Import", "/import"], ["Passeport", "/passport"]]],
-              ["Parcours", [["Analyse", "/analysis"], ["Consentement", "/consent"], ["Vue partenaire", "/partner"]]],
-              ["Principes", [["Fonctionnement", "#fonctionnement"], ["Confiance", "#confiance"], ["Retour en haut", "#top"]]],
-            ].map(([title, links]) => (
-              <div key={String(title)}>
-                <p className="text-xs font-bold uppercase tracking-[.16em] text-white/35">{String(title)}</p>
+            {FOOTER_LINKS.map(([title, links]) => (
+              <div key={title}>
+                <p className="text-xs font-bold uppercase tracking-[.16em] text-white/35">{title}</p>
                 <div className="mt-4 flex flex-col gap-3 text-sm text-white/65">
-                  {(links as readonly (readonly [string, string])[]).map(([label, href]) => (
+                  {links.map(([label, href]) => (
                     <Link key={label} href={href} className="hover:text-white">{label}</Link>
                   ))}
                 </div>

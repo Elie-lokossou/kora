@@ -4,6 +4,7 @@ import Link from "next/link";
 import {
   ArrowRight,
   BadgePercent,
+  BarChart3,
   CalendarDays,
   CheckCircle2,
   CircleDollarSign,
