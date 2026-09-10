@@ -16,13 +16,16 @@
   --line: #ded4c3;
   --success: #247356;
   --white: #fffdf9;
+  --navy: #102d27;
+  --mint: #b8dfc8;
+  --radius: 1rem;
 }
 
 @theme inline {
   --color-background: var(--paper);
   --color-foreground: var(--ink);
-  --font-sans: "DM Sans", "DM Sans Fallback", ui-sans-serif, system-ui, sans-serif;
-  --font-serif: "Fraunces", "Fraunces Fallback", ui-serif, Georgia, serif;
+  --font-sans: "Space Grotesk", "Space Grotesk Fallback", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Sora", "Sora Fallback", ui-sans-serif, system-ui, sans-serif;
 }
 
 html {
@@ -34,6 +37,14 @@ body {
   background: var(--paper);
   color: var(--ink);
   text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-sora), "Sora Fallback", ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: -0.035em;
 }
 
 a {
@@ -70,6 +81,35 @@ button:disabled {
   background-size: 28px 28px;
 }
 
+.landing-grid {
+  background-image:
+    linear-gradient(rgba(184, 223, 200, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(184, 223, 200, 0.055) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: linear-gradient(to bottom, black 35%, transparent 95%);
+}
+
+.landing-card {
+  border: 1px solid color-mix(in srgb, var(--line) 78%, transparent);
+  background: color-mix(in srgb, var(--white) 94%, transparent);
+  box-shadow: 0 24px 60px -38px rgba(14, 51, 39, 0.35);
+}
+
+.reveal {
+  animation: reveal 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .focus-ring {
   transition:
     box-shadow 160ms ease,
@@ -87,5 +127,7 @@ button:disabled {
   *::after {
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
   }
 }
