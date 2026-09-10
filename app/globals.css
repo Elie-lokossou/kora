@@ -1,13 +1,14 @@
 @import "tailwindcss";
 
 :root {
-  --paper: #f7f3eb;
-  --paper-deep: #efe7d8;
+  --paper: #f8f6f1;
+  --paper-deep: #eee9df;
+  --app-bg: #f4f2ed;
   --ink: #14231c;
   --forest: #174837;
-  --forest-deep: #0e3327;
+  --forest-deep: #0b3025;
   --forest-soft: #dce9e1;
-  --gold: #d4ad5b;
+  --gold: #e0b955;
   --gold-soft: #f5e8c9;
   --clay: #a54f32;
   --clay-soft: #f6e2d9;
@@ -15,7 +16,7 @@
   --muted: #607168;
   --line: #ded4c3;
   --success: #247356;
-  --white: #fffdf9;
+  --white: #fffefa;
   --navy: #102d27;
   --mint: #b8dfc8;
   --radius: 1rem;
@@ -30,6 +31,8 @@
 
 html {
   height: 100%;
+  scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem;
 }
 
 body {
@@ -95,6 +98,21 @@ button:disabled {
   border: 1px solid color-mix(in srgb, var(--line) 78%, transparent);
   background: color-mix(in srgb, var(--white) 94%, transparent);
   box-shadow: 0 24px 60px -38px rgba(14, 51, 39, 0.35);
+}
+
+.section-kicker {
+  color: var(--clay);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.19em;
+  text-transform: uppercase;
+}
+
+.app-surface {
+  border: 1px solid var(--line);
+  border-radius: 1.25rem;
+  background: var(--white);
+  box-shadow: 0 18px 45px -38px rgba(11, 48, 37, 0.35);
 }
 
 .reveal {
