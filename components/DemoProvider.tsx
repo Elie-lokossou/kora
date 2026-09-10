@@ -125,7 +125,6 @@ export function DemoProvider({ children }: { children: ReactNode }) {
       return;
     }
     let active = true;
-    setIsLoading(true);
     request<{ view: PartnerView | null }>("/api/partner")
       .then(({ view }) => {
         if (active) setPartnerView(view);
@@ -133,9 +132,6 @@ export function DemoProvider({ children }: { children: ReactNode }) {
       .catch((cause: unknown) => {
         if (active) setError(cause instanceof Error ? cause.message : "Vue partenaire indisponible.");
       })
-      .finally(() => {
-        if (active) setIsLoading(false);
-      });
     return () => {
       active = false;
     };
@@ -230,7 +226,7 @@ export function DemoProvider({ children }: { children: ReactNode }) {
         setIsLoading(false);
       }
     },
-    isLoading,
+    isLoading: isLoading || Boolean(pathname === "/partner" && consent && !partnerView),
     error,
     clearError: () => setError(null),
   };
