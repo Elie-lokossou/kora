@@ -17,7 +17,6 @@ import {
   ShieldCheck,
   Sparkles,
   Store,
-  TrendingUp,
   UploadCloud,
   WalletCards,
 } from "lucide-react";

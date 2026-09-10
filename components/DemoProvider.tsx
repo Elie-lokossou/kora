@@ -122,7 +122,6 @@ export function DemoProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (pathname !== "/partner" || !consent) {
-      if (!consent) setPartnerView(null);
       return;
     }
     let active = true;
