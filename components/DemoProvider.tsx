@@ -4,15 +4,12 @@ import {
   createContext,
   useCallback,
   useContext,
-  useMemo,
+  useEffect,
   useState,
   useSyncExternalStore,
   type ReactNode,
 } from "react";
-import { addDays, buildPartnerView } from "@/lib/engine/consent";
-import { computeIndicators } from "@/lib/engine/indicators";
-import { buildPassport } from "@/lib/engine/explain";
-import { parseCsv } from "@/lib/engine/normalize";
+import { usePathname } from "next/navigation";
 import type {
   ConsentGrant,
   ConsentScope,
@@ -20,7 +17,7 @@ import type {
   PartnerView,
   Transaction,
 } from "@/lib/engine/types";
-import { buildMariamPassport, MARIAM_PROFILE, MARIAM_TRANSACTIONS } from "@/lib/demo/mariam";
+import { buildMariamPassport, MARIAM_TRANSACTIONS } from "@/lib/demo/mariam";
 import {
   DEFAULT_SCOPES,
   getDemoSnapshot,
@@ -41,16 +38,20 @@ type DemoContextValue = {
   durationDays: number;
   setDurationDays: (days: number) => void;
   consent: ConsentGrant | null;
-  authorize: () => void;
-  revoke: () => void;
+  authorize: () => Promise<void>;
+  revoke: () => Promise<void>;
   partnerView: PartnerView | null;
-  importCsv: (csv: string) => void;
-  resetDemo: () => void;
+  importCsv: (csv: string) => Promise<void>;
+  resetDemo: () => Promise<void>;
+  isLoading: boolean;
+  error: string | null;
+  clearError: () => void;
 };
 
 const DemoContext = createContext<DemoContextValue | null>(null);
 
 export function DemoProvider({ children }: { children: ReactNode }) {
+  const pathname = usePathname();
   const stored = useSyncExternalStore(
     subscribeDemo,
     getDemoSnapshot,
@@ -58,32 +59,88 @@ export function DemoProvider({ children }: { children: ReactNode }) {
   );
   const [transactions, setTransactions] =
     useState<Transaction[]>(MARIAM_TRANSACTIONS);
-
-  const passport = useMemo(() => {
-    if (transactions === MARIAM_TRANSACTIONS) {
-      return buildMariamPassport();
-    }
-    return buildPassport({
-      ...MARIAM_PROFILE,
-      generatedAt: "2026-09-09T09:00:00.000Z",
-      indicators: computeIndicators(transactions),
-    });
-  }, [transactions]);
-
-  const partnerView = useMemo(() => {
-    if (!stored.consent) {
-      return null;
-    }
-    return buildPartnerView(
-      passport,
-      stored.consent,
-      "2026-09-09T12:00:00.000Z",
-    );
-  }, [stored.consent, passport]);
+  const [passport, setPassport] = useState<EconomicPassport>(() => buildMariamPassport());
+  const [consent, setConsent] = useState<ConsentGrant | null>(null);
+  const [partnerView, setPartnerView] = useState<PartnerView | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   const patch = useCallback((partial: Partial<DemoState>) => {
     writeDemoState({ ...getDemoSnapshot(), ...partial });
   }, []);
+
+  const applyState = useCallback((state: {
+    transactions: Transaction[];
+    passport: EconomicPassport;
+    consent: ConsentGrant | null;
+  }) => {
+    setTransactions(state.transactions);
+    setPassport(state.passport);
+    setConsent(state.consent);
+  }, []);
+
+  const request = useCallback(async <T,>(
+    url: string,
+    init?: RequestInit,
+  ): Promise<T> => {
+    const response = await fetch(url, {
+      ...init,
+      headers: { "Content-Type": "application/json", ...init?.headers },
+      cache: "no-store",
+    });
+    const payload: unknown = await response.json();
+    if (!response.ok) {
+      const message =
+        payload && typeof payload === "object" && "error" in payload
+          ? String((payload as { error: unknown }).error)
+          : "Une erreur est survenue.";
+      throw new Error(message);
+    }
+    return payload as T;
+  }, []);
+
+  useEffect(() => {
+    let active = true;
+    request<{
+      transactions: Transaction[];
+      passport: EconomicPassport;
+      consent: ConsentGrant | null;
+    }>("/api/state")
+      .then((state) => {
+        if (active) applyState(state);
+      })
+      .catch((cause: unknown) => {
+        if (active) setError(cause instanceof Error ? cause.message : "Dossier indisponible.");
+      })
+      .finally(() => {
+        if (active) setIsLoading(false);
+      });
+    return () => {
+      active = false;
+    };
+  }, [applyState, request]);
+
+  useEffect(() => {
+    if (pathname !== "/partner" || !consent) {
+      if (!consent) setPartnerView(null);
+      return;
+    }
+    let active = true;
+    setIsLoading(true);
+    request<{ view: PartnerView | null }>("/api/partner")
+      .then(({ view }) => {
+        if (active) setPartnerView(view);
+      })
+      .catch((cause: unknown) => {
+        if (active) setError(cause instanceof Error ? cause.message : "Vue partenaire indisponible.");
+      })
+      .finally(() => {
+        if (active) setIsLoading(false);
+      });
+    return () => {
+      active = false;
+    };
+  }, [consent, pathname, request]);
 
   const value: DemoContextValue = {
     role: stored.role,
@@ -94,42 +151,89 @@ export function DemoProvider({ children }: { children: ReactNode }) {
     setScopes: (scopes) => patch({ scopes }),
     durationDays: stored.durationDays,
     setDurationDays: (durationDays) => patch({ durationDays }),
-    consent: stored.consent,
-    authorize: () => {
+    consent,
+    authorize: async () => {
       const current = getDemoSnapshot();
-      patch({
-        consent: {
-          id: "consent-abc-bank",
-          partnerName: "ABC Bank",
-          partnerId: "partner-abc",
-          scopes: current.scopes,
-          durationDays: current.durationDays,
-          createdAt: "2026-09-09T09:00:00.000Z",
-          expiresAt: addDays("2026-09-09", current.durationDays),
-          status: "active",
-        },
-      });
-    },
-    revoke: () => {
-      const current = getDemoSnapshot().consent;
-      if (!current) {
-        return;
+      setIsLoading(true);
+      setError(null);
+      try {
+        const nextConsent = await request<ConsentGrant>("/api/consents", {
+          method: "POST",
+          body: JSON.stringify({
+            scopes: current.scopes,
+            durationDays: current.durationDays,
+          }),
+        });
+        setConsent(nextConsent);
+      } catch (cause) {
+        setError(cause instanceof Error ? cause.message : "Autorisation impossible.");
+      } finally {
+        setIsLoading(false);
       }
-      patch({ consent: { ...current, status: "revoked" } });
+    },
+    revoke: async () => {
+      setIsLoading(true);
+      setError(null);
+      try {
+        const revoked = await request<ConsentGrant>("/api/consents", {
+          method: "DELETE",
+        });
+        setConsent(revoked);
+        setPartnerView(null);
+      } catch (cause) {
+        setError(cause instanceof Error ? cause.message : "Révocation impossible.");
+      } finally {
+        setIsLoading(false);
+      }
     },
     partnerView,
-    importCsv: (csv: string) => {
-      setTransactions(parseCsv(csv));
+    importCsv: async (csv: string) => {
+      setIsLoading(true);
+      setError(null);
+      try {
+        const state = await request<{
+          transactions: Transaction[];
+          passport: EconomicPassport;
+          consent: ConsentGrant | null;
+        }>("/api/import", {
+          method: "POST",
+          body: JSON.stringify({ csv }),
+        });
+        applyState(state);
+        setPartnerView(null);
+      } catch (cause) {
+        setError(cause instanceof Error ? cause.message : "Import impossible.");
+        throw cause;
+      } finally {
+        setIsLoading(false);
+      }
     },
-    resetDemo: () => {
-      setTransactions(MARIAM_TRANSACTIONS);
-      writeDemoState({
-        role: "entrepreneur",
-        scopes: DEFAULT_SCOPES,
-        durationDays: 30,
-        consent: null,
-      });
+    resetDemo: async () => {
+      setIsLoading(true);
+      setError(null);
+      try {
+        const state = await request<{
+          transactions: Transaction[];
+          passport: EconomicPassport;
+          consent: ConsentGrant | null;
+        }>("/api/reset", { method: "POST" });
+        applyState(state);
+        setPartnerView(null);
+        writeDemoState({
+          role: "entrepreneur",
+          scopes: DEFAULT_SCOPES,
+          durationDays: 30,
+          consent: null,
+        });
+      } catch (cause) {
+        setError(cause instanceof Error ? cause.message : "Réinitialisation impossible.");
+      } finally {
+        setIsLoading(false);
+      }
     },
+    isLoading,
+    error,
+    clearError: () => setError(null),
   };
 
   return <DemoContext.Provider value={value}>{children}</DemoContext.Provider>;

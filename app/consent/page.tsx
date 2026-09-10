@@ -31,6 +31,8 @@ export default function ConsentPage() {
     authorize,
     revoke,
     consent,
+    isLoading,
+    error,
   } = useDemo();
 
   function toggle(scope: ConsentScope) {
@@ -62,6 +64,12 @@ export default function ConsentPage() {
             <p className="font-bold text-[var(--success)]">Autorisation enregistrée</p>
             <p className="mt-1 text-[var(--muted)]">ABC Bank peut consulter {consent.scopes.length} catégories jusqu&apos;au {new Date(consent.expiresAt).toLocaleDateString("fr-FR")}.</p>
           </div>
+        </div>
+      ) : null}
+      {error ? (
+        <div className="mt-4 rounded-2xl border border-[var(--clay)]/20 bg-[var(--clay-soft)] p-4 text-sm text-[var(--clay)]" role="alert">
+          <p className="font-bold">Action impossible</p>
+          <p className="mt-1">{error}</p>
         </div>
       ) : null}
 
@@ -160,18 +168,19 @@ export default function ConsentPage() {
         <div className="flex flex-wrap gap-2">
           <button
             type="button"
-            onClick={authorize}
-            disabled={scopes.length === 0}
+            onClick={() => void authorize()}
+            disabled={scopes.length === 0 || isLoading}
             className="focus-ring inline-flex items-center gap-2 rounded-full bg-[var(--forest)] px-5 py-3 text-sm font-bold text-white"
           >
-            Autoriser ABC Bank
+            {isLoading ? "Enregistrement…" : "Autoriser ABC Bank"}
             <ArrowRight className="size-4" aria-hidden="true" />
           </button>
           {consent?.status === "active" ? (
             <>
               <button
                 type="button"
-                onClick={revoke}
+                onClick={() => void revoke()}
+                disabled={isLoading}
                 className="inline-flex items-center gap-2 rounded-full border border-[var(--clay)]/30 px-4 py-3 text-sm font-bold text-[var(--clay)]"
               >
                 <Ban className="size-4" aria-hidden="true" />

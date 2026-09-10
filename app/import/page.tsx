@@ -17,15 +17,18 @@ import { MARIAM_CSV } from "@/lib/demo/mariam";
 import { formatFcfa, sourceLabel } from "@/lib/format";
 
 export default function ImportPage() {
-  const { transactions, importCsv, resetDemo } = useDemo();
+  const { transactions, importCsv, resetDemo, isLoading } = useDemo();
   const [error, setError] = useState<string | null>(null);
   const [fileName, setFileName] = useState<string>("mariam-transactions.csv");
 
-  function loadCsv(csv: string, name: string) {
-    const parsed = importCsv(csv);
-    setFileName(name);
-    setError(null);
-    return parsed;
+  async function loadCsv(csv: string, name: string) {
+    try {
+      await importCsv(csv);
+      setFileName(name);
+      setError(null);
+    } catch (cause) {
+      setError(cause instanceof Error ? cause.message : "CSV illisible");
+    }
   }
 
   return (
@@ -65,7 +68,7 @@ export default function ImportPage() {
                   if (csv.trim().split(/\r?\n/).length < 2) {
                     throw new Error("Le fichier ne contient aucune transaction.");
                   }
-                  loadCsv(csv, file.name);
+                  await loadCsv(csv, file.name);
               } catch (cause) {
                 setError(
                   cause instanceof Error ? cause.message : "CSV illisible",
@@ -77,9 +80,10 @@ export default function ImportPage() {
           <button
             type="button"
             className="focus-ring rounded-full border border-[var(--line)] bg-[var(--white)] px-5 py-3 text-sm font-bold text-[var(--forest)]"
-            onClick={() => loadCsv(MARIAM_CSV, "mariam-transactions.csv")}
+            onClick={() => void loadCsv(MARIAM_CSV, "mariam-transactions.csv")}
+            disabled={isLoading}
           >
-            Utiliser le jeu Mariam
+            {isLoading ? "Normalisation…" : "Utiliser le jeu Mariam"}
           </button>
         </div>
       </section>
@@ -110,8 +114,9 @@ export default function ImportPage() {
               <button
                 type="button"
                 className="inline-flex items-center gap-1.5 rounded-full px-3 py-2 text-xs font-bold text-[var(--muted)]"
+                disabled={isLoading}
                 onClick={() => {
-                  resetDemo();
+                  void resetDemo();
                   setFileName("mariam-transactions.csv");
                   setError(null);
                 }}

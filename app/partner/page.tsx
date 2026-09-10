@@ -35,7 +35,24 @@ function Denied({ scope }: { scope: ConsentScope }) {
 }
 
 export default function PartnerPage() {
-  const { partnerView, setRole } = useDemo();
+  const { partnerView, setRole, isLoading, consent, error } = useDemo();
+
+  if (isLoading && consent) {
+    return (
+      <AppShell>
+        <ScreenHeader
+          eyebrow="Étape 6 sur 6"
+          title="Projection sécurisée en cours"
+          description="Kora applique les catégories autorisées côté serveur avant de transmettre le dossier à ABC Bank."
+          icon={Building2}
+          action={<StatusBadge tone="warning">Vérification du consentement</StatusBadge>}
+        />
+        <div className="mt-8 h-64 animate-pulse rounded-3xl bg-[var(--paper-deep)]" role="status">
+          <span className="sr-only">Chargement de la vue partenaire</span>
+        </div>
+      </AppShell>
+    );
+  }
 
   if (!partnerView || partnerView.granted.length === 0) {
     return (
@@ -53,7 +70,7 @@ export default function PartnerPage() {
           </span>
           <h2 className="mt-4 font-serif text-2xl text-[var(--forest)]">Aucun dossier accessible</h2>
           <p className="mx-auto mt-2 max-w-lg text-sm leading-6 text-[var(--muted)]">
-            Aucun consentement actif. ABC Bank ne reçoit rien — pas même un passeport flouté ou des données cachées côté interface.
+            {error ?? "Aucun consentement actif. ABC Bank ne reçoit rien — pas même un passeport flouté ou des données cachées côté interface."}
           </p>
           <Link
             href="/consent"
@@ -177,14 +194,14 @@ export default function PartnerPage() {
         <p className="max-w-2xl text-xs leading-5 text-[var(--muted)]">
           ABC Bank construit sa propre décision. Kora explique l&apos;activité et n&apos;accorde aucun prêt.
         </p>
-        <button
-          type="button"
+        <Link
+          href="/dashboard"
           onClick={() => setRole("entrepreneur")}
           className="inline-flex items-center gap-2 text-sm font-bold text-[var(--forest)]"
         >
           <ArrowLeft className="size-4" aria-hidden="true" />
           Revenir côté Mariam
-        </button>
+        </Link>
       </footer>
     </AppShell>
   );
