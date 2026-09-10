@@ -1,21 +1,28 @@
 @import "tailwindcss";
 
 :root {
-  --paper: #f6f0e6;
+  --paper: #f7f3eb;
+  --paper-deep: #efe7d8;
   --ink: #14231c;
-  --forest: #1f4d3a;
-  --gold: #c4a15a;
-  --clay: #9a4d2e;
+  --forest: #174837;
+  --forest-deep: #0e3327;
+  --forest-soft: #dce9e1;
+  --gold: #d4ad5b;
+  --gold-soft: #f5e8c9;
+  --clay: #a54f32;
+  --clay-soft: #f6e2d9;
   --sand: #f3ead8;
-  --muted: #5c6b63;
-  --line: #e4d8c4;
+  --muted: #607168;
+  --line: #ded4c3;
+  --success: #247356;
+  --white: #fffdf9;
 }
 
 @theme inline {
   --color-background: var(--paper);
   --color-foreground: var(--ink);
-  --font-sans: var(--font-dm);
-  --font-serif: var(--font-fraunces);
+  --font-sans: "DM Sans", "DM Sans Fallback", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Fraunces", "Fraunces Fallback", ui-serif, Georgia, serif;
 }
 
 html {
@@ -26,8 +33,59 @@ body {
   min-height: 100%;
   background: var(--paper);
   color: var(--ink);
+  text-rendering: optimizeLegibility;
 }
 
 a {
   color: inherit;
+}
+
+button,
+a,
+input,
+select {
+  outline-color: var(--gold);
+  outline-offset: 3px;
+}
+
+button:not(:disabled),
+label:has(input[type="file"]) {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+::selection {
+  background: var(--gold-soft);
+  color: var(--forest-deep);
+}
+
+.paper-grid {
+  background-image:
+    linear-gradient(rgba(23, 72, 55, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(23, 72, 55, 0.025) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+.focus-ring {
+  transition:
+    box-shadow 160ms ease,
+    transform 160ms ease,
+    background-color 160ms ease;
+}
+
+.focus-ring:hover {
+  transform: translateY(-1px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
 }
