@@ -74,7 +74,9 @@ async function persist(state: KoraState): Promise<void> {
 
 async function readState(): Promise<KoraState> {
   try {
-    const parsed: unknown = JSON.parse(await readFile(STORE_PATH, "utf8"));
+    const parsed: unknown = JSON.parse(
+      await readFile(/* turbopackIgnore: true */ STORE_PATH, "utf8"),
+    );
     if (!isStoredState(parsed)) throw new Error("Format de stockage Kora invalide.");
     return parsed;
   } catch (error) {
