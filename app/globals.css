@@ -1,33 +1,153 @@
 @import "tailwindcss";
 
 :root {
-  --paper: #f6f0e6;
+  --paper: #f8f6f1;
+  --paper-deep: #eee9df;
+  --app-bg: #f4f2ed;
   --ink: #14231c;
-  --forest: #1f4d3a;
-  --gold: #c4a15a;
-  --clay: #9a4d2e;
+  --forest: #174837;
+  --forest-deep: #0b3025;
+  --forest-soft: #dce9e1;
+  --gold: #e0b955;
+  --gold-soft: #f5e8c9;
+  --clay: #a54f32;
+  --clay-soft: #f6e2d9;
   --sand: #f3ead8;
-  --muted: #5c6b63;
-  --line: #e4d8c4;
+  --muted: #607168;
+  --line: #ded4c3;
+  --success: #247356;
+  --white: #fffefa;
+  --navy: #102d27;
+  --mint: #b8dfc8;
+  --radius: 1rem;
 }
 
 @theme inline {
   --color-background: var(--paper);
   --color-foreground: var(--ink);
-  --font-sans: var(--font-dm);
-  --font-serif: var(--font-fraunces);
+  --font-sans: "Space Grotesk", "Space Grotesk Fallback", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Sora", "Sora Fallback", ui-sans-serif, system-ui, sans-serif;
 }
 
 html {
   height: 100%;
+  scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem;
 }
 
 body {
   min-height: 100%;
   background: var(--paper);
   color: var(--ink);
+  text-rendering: optimizeLegibility;
 }
 
-a {
-  color: inherit;
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-sora), "Sora Fallback", ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: -0.035em;
+}
+
+@layer base {
+  a {
+    color: inherit;
+  }
+}
+
+button,
+a,
+input,
+select {
+  outline-color: var(--gold);
+  outline-offset: 3px;
+}
+
+button:not(:disabled),
+label:has(input[type="file"]) {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+::selection {
+  background: var(--gold-soft);
+  color: var(--forest-deep);
+}
+
+.paper-grid {
+  background-image:
+    linear-gradient(rgba(23, 72, 55, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(23, 72, 55, 0.025) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+.landing-grid {
+  background-image:
+    linear-gradient(rgba(184, 223, 200, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(184, 223, 200, 0.055) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: linear-gradient(to bottom, black 35%, transparent 95%);
+}
+
+.landing-card {
+  border: 1px solid color-mix(in srgb, var(--line) 78%, transparent);
+  background: color-mix(in srgb, var(--white) 94%, transparent);
+  box-shadow: 0 24px 60px -38px rgba(14, 51, 39, 0.35);
+}
+
+.section-kicker {
+  color: var(--clay);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.19em;
+  text-transform: uppercase;
+}
+
+.app-surface {
+  border: 1px solid var(--line);
+  border-radius: 1.25rem;
+  background: var(--white);
+  box-shadow: 0 18px 45px -38px rgba(11, 48, 37, 0.35);
+}
+
+.reveal {
+  animation: reveal 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.focus-ring {
+  transition:
+    box-shadow 160ms ease,
+    transform 160ms ease,
+    background-color 160ms ease;
+}
+
+.focus-ring:hover {
+  transform: translateY(-1px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
 }

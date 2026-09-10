@@ -84,6 +84,39 @@ describe("partner filtering", () => {
     const view = buildPartnerView(passport, consent, "2026-09-10T09:00:00.000Z");
     assert.equal(view.passport.monthlyAvgRevenue, undefined);
     assert.equal(typeof view.passport.explanation, "string");
+    assert.doesNotMatch(view.passport.explanation ?? "", /\b111\b|FCFA/);
     assert.ok(explainIndicators(passport.indicators).includes("FCFA"));
+  });
+
+  it("returns no passport values after revocation or expiration", () => {
+    const passport = buildPassport({
+      businessName: "Mariam Commerce",
+      ownerName: "Mariam Adjovi",
+      city: "Cotonou",
+      country: "Bénin",
+      sector: "Commerce",
+      generatedAt: "2026-09-09T09:00:00.000Z",
+      indicators: computeIndicators(sample),
+    });
+    const consent: ConsentGrant = {
+      id: "c2",
+      partnerName: "ABC Bank",
+      partnerId: "abc",
+      scopes: ["aggregated_revenue", "personal_identity"],
+      durationDays: 7,
+      createdAt: "2026-09-01T09:00:00.000Z",
+      expiresAt: "2026-09-08T09:00:00.000Z",
+      status: "active",
+    };
+    const expired = buildPartnerView(passport, consent, "2026-09-10T09:00:00.000Z");
+    const revoked = buildPartnerView(
+      passport,
+      { ...consent, status: "revoked", expiresAt: "2026-10-08T09:00:00.000Z" },
+      "2026-09-10T09:00:00.000Z",
+    );
+    assert.deepEqual(expired.passport, {});
+    assert.deepEqual(revoked.passport, {});
+    assert.equal(expired.granted.length, 0);
+    assert.equal(revoked.granted.length, 0);
   });
 });

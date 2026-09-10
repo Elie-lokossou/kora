@@ -6,6 +6,44 @@ import {
   type PartnerView,
 } from "./types";
 
+function buildScopedExplanation(
+  passport: EconomicPassport,
+  allowed: Set<ConsentScope>,
+): string {
+  const sentences: string[] = [];
+  const { indicators } = passport;
+  if (allowed.has("aggregated_revenue")) {
+    sentences.push(
+      `Le revenu mensuel moyen observé est de ${new Intl.NumberFormat("fr-FR").format(indicators.monthlyAvgRevenue)} FCFA.`,
+    );
+  }
+  if (allowed.has("activity_trend")) {
+    const sign = indicators.growthRate > 0 ? "+" : "";
+    sentences.push(
+      `L’évolution entre le premier et le dernier mois est de ${sign}${Math.round(indicators.growthRate * 100)} %.`,
+    );
+  }
+  if (allowed.has("regularity")) {
+    sentences.push(
+      `La régularité mensuelle calculée est de ${Math.round(indicators.regularityScore * 100)} %.`,
+    );
+  }
+  if (allowed.has("supplier_reliability")) {
+    sentences.push(
+      `${indicators.supplierPaid} paiement(s) fournisseur(s) sur ${indicators.supplierExpected} attendu(s) sont observés.`,
+    );
+  }
+  if (allowed.has("cashflow_summary")) {
+    sentences.push(
+      `Le cash-flow net cumulé est de ${new Intl.NumberFormat("fr-FR").format(indicators.netCashflow)} FCFA.`,
+    );
+  }
+  if (sentences.length === 0) {
+    return "Le résumé chiffré n’est pas disponible, car les indicateurs correspondants n’ont pas été autorisés.";
+  }
+  return `${sentences.join(" ")} Cette lecture décrit les données autorisées et ne constitue pas une décision de crédit.`;
+}
+
 export function filterPassportForScopes(
   passport: EconomicPassport,
   scopes: ConsentScope[],
@@ -48,7 +86,7 @@ export function filterPassportForScopes(
   }
 
   if (allowed.has("ai_summary")) {
-    view.explanation = passport.explanation;
+    view.explanation = buildScopedExplanation(passport, allowed);
   }
 
   return view;

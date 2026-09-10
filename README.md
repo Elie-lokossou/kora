@@ -9,7 +9,55 @@
 > npm install
 > npm run dev
 > ```
-> Ouvre `/dashboard`. Les 6 écrans du parcours démo tournent **sans backend**, avec le jeu Mariam. Convex vient ensuite (`npx convex dev`, jamais `deploy` pendant le hackathon).
+> Ouvre `/` pour la landing publique, puis lance le parcours Mariam depuis `/dashboard`.
+
+## État de l’implémentation
+
+Le prototype inclut désormais un backend Next.js déterministe et sans secret :
+
+- l’import CSV est validé et normalisé côté serveur ;
+- le passeport et ses indicateurs sont recalculés depuis les transactions persistées ;
+- le consentement (catégories, destinataire, durée, statut) est enregistré côté serveur ;
+- `/api/partner` construit une projection minimisée avant la réponse et journalise chaque lecture autorisée ;
+- la révocation coupe immédiatement la projection partenaire.
+
+La persistance de démonstration utilise un fichier JSON atomique dans `.data/kora.json`.
+Elle résiste aux redémarrages du serveur local, mais **n’est pas une base de données de
+production** et ne convient pas au système de fichiers éphémère d’un déploiement
+serverless. Le schéma Convex présent dans `convex/` reste la cible produit pour une
+persistance multi-utilisateur.
+
+### Commandes de qualité
+
+```bash
+npm run lint
+npm run typecheck
+npm test
+npm run build
+```
+
+### Routes
+
+| Route | Rôle |
+|---|---|
+| `/` | Landing publique et récit produit |
+| `/dashboard` | Synthèse de l’activité de Mariam |
+| `/import` | Import CSV / jeu de démonstration |
+| `/analysis` | Indicateurs et explication déterministe |
+| `/passport` | Passeport économique complet |
+| `/consent` | Consentement granulaire pour ABC Bank |
+| `/partner` | Projection serveur limitée aux catégories autorisées |
+
+### API locale
+
+| Méthode | Endpoint | Contrat |
+|---|---|---|
+| `GET` | `/api/state` | Dossier entrepreneur courant |
+| `POST` | `/api/import` | `{ csv: string }`, 500 Ko maximum |
+| `POST` | `/api/consents` | `{ scopes, durationDays }` |
+| `DELETE` | `/api/consents` | Révocation du consentement courant |
+| `GET` | `/api/partner` | Projection filtrée + identifiant de journal d’accès |
+| `POST` | `/api/reset` | Retour au jeu Mariam |
 
 Kora is a consent-based **Economic Data Passport** designed to help small businesses transform their real-world economic activity into structured, understandable and shareable data.
 
